@@ -1,0 +1,150 @@
+Questão 1)
+# Dados do problema
+media_amostral <- 30  # Média da amostra
+desvio_padrao_amostral <- 5  # Desvio padrão da amostra
+tamanho_amostra <- 27  # Tamanho da amostra
+nivel_confianca <- 0.99  # Nível de confiança
+
+# Calculando o erro padrão da média
+erro_padrao <- desvio_padrao_amostral / sqrt(tamanho_amostra)
+
+# Calculando o valor crítico da distribuição t de Student
+valor_critico <- qt((1 + nivel_confianca) / 2, tamanho_amostra - 1)
+
+# Calculando o intervalo de confiança
+limite_inferior <- media_amostral - valor_critico * erro_padrao
+limite_superior <- media_amostral + valor_critico * erro_padrao
+
+# Resultado
+cat("Intervalo de Confiança (99%): [", limite_inferior, ", ", limite_superior, "]\n")
+
+Questão 2)
+# Dados do problema
+variancia_populacional <- 18  # Variabilidade da população em mg^2
+desvio_padrao_amostral <- 4    # Desvio padrão da amostra em mg
+tamanho_amostra <- 10          # Tamanho da amostra
+nivel_significancia <- 0.05    # Nível de significância (α)
+
+# Graus de liberdade para o teste t
+graus_liberdade <- tamanho_amostra - 1
+
+# Estatística de teste
+estatistica_t <- ((desvio_padrao_amostral ^ 2) * (tamanho_amostra - 1)) / variancia_populacional
+
+# Valor crítico do teste t (bicaudal)
+valor_critico_t <- qt(1 - nivel_significancia/2, graus_liberdade)
+
+# Valor-p
+valor_p <- 2 * (1 - pt(estatistica_t, graus_liberdade))
+
+# Tomando a decisão com base no valor-p
+if (valor_p < nivel_significancia) {
+  cat("Rejeitar H0: A variabilidade do conteúdo de açúcar na calda de pêssegos não é igual a 18 mg^2.\n")
+} else {
+  cat("Não rejeitar H0: Não há evidência suficiente para concluir que a variabilidade é diferente de 18 mg^2.\n")
+}
+
+# Exibir os resultados
+cat("Estatística de teste t:", estatistica_t, "\n")
+cat("Valor-p:", valor_p, "\n")
+cat("Valor crítico do teste t:", valor_critico_t, "\n")
+
+Questão 3) 
+# Dados do problema
+proporcao_antes_alteracoes <- 0.14  # Proporção antes das alterações
+proporcao_amostra <- 0.1333        # Proporção na amostra
+tamanho_amostra <- 360             # Tamanho da amostra
+nivel_significancia <- 0.05        # Nível de significância (α)
+
+# Cálculo do desvio padrão da proporção na amostra
+desvio_padrao <- sqrt((proporcao_amostra * (1 - proporcao_amostra)) / tamanho_amostra)
+
+# Cálculo da estatística de teste z
+estatistica_z <- (proporcao_amostra - proporcao_antes_alteracoes) / desvio_padrao
+
+# Valor crítico do teste z para α = 0,05 (unilateral à esquerda)
+valor_critico_z <- qnorm(1 - nivel_significancia)
+
+# Tomando a decisão com base nos resultados
+if (estatistica_z < valor_critico_z) {
+  cat("Rejeitar H0: As alterações melhoraram a qualidade com nível de significância de 5%.\n")
+} else {
+  cat("Não rejeitar H0: Não há evidência suficiente para concluir que as alterações melhoraram a qualidade com nível de significância de 5%.\n")
+}
+
+# Exibir os resultados
+cat("Estatística de teste z:", estatistica_z, "\n")
+cat("Valor crítico do teste z:", valor_critico_z, "\n")
+
+Questão 4)
+# Dados da marca A
+media_A <- 18
+desvio_padrao_A <- 8
+tamanho_amostra_A <- 35
+
+# Dados da marca B
+media_B <- 22
+desvio_padrao_B <- 3
+tamanho_amostra_B <- 32
+
+# Nível de significância
+nivel_significancia <- 0.05
+
+# Cálculo da estatística de teste Z
+estatistica_z <- (media_A - media_B) / sqrt((desvio_padrao_A^2 / tamanho_amostra_A) + (desvio_padrao_B^2 / tamanho_amostra_B))
+
+# Valor crítico do teste Z para α = 0,05 (unilateral à esquerda)
+valor_critico_z <- qnorm(nivel_significancia)
+
+# Tomando a decisão com base nos resultados
+if (estatistica_z < valor_critico_z) {
+  cat("Rejeitar H0: A marca A poupa menos combustível que a marca B com nível de significância de 5%.\n")
+} else {
+  cat("Não rejeitar H0: Não há evidência suficiente para concluir que a marca A poupa menos combustível que a marca B com nível de significância de 5%.\n")
+}
+
+# Exibir os resultados
+cat("Estatística de teste Z:", estatistica_z, "\n")
+cat("Valor crítico do teste Z:", valor_critico_z, "\n")
+
+Questão 5)
+# Dados de 2010
+total_crimes_2010 <- 113231
+violacoes_2010 <- 7622
+
+# Dados de 2011
+total_crimes_2011 <- 104873
+violacoes_2011 <- 7439
+
+# Nível de significância
+nivel_significancia <- 0.05
+
+# Proporção de violações em 2010
+proporcao_2010 <- violacoes_2010 / total_crimes_2010
+
+# Proporção de violações em 2011
+proporcao_2011 <- violacoes_2011 / total_crimes_2011
+
+# Calculando as estatísticas do teste Z para duas proporções independentes
+pooled_proporcao <- (violacoes_2010 + violacoes_2011) / (total_crimes_2010 + total_crimes_2011)
+z <- (proporcao_2010 - proporcao_2011) / sqrt(pooled_proporcao * (1 - pooled_proporcao) * (1 / total_crimes_2010 + 1 / total_crimes_2011))
+
+# Encontrando o valor crítico do teste Z para um teste bilateral com α = 0,05
+valor_critico_z <- qnorm(1 - nivel_significancia / 2)
+
+# Calculando o intervalo de confiança para a diferença de proporções
+erro_padrao <- sqrt((proporcao_2010 * (1 - proporcao_2010) / total_crimes_2010) + (proporcao_2011 * (1 - proporcao_2011) / total_crimes_2011))
+margem_erro <- valor_critico_z * erro_padrao
+intervalo_confianca <- c(proporcao_2010 - proporcao_2011 - margem_erro, proporcao_2010 - proporcao_2011 + margem_erro)
+
+# Tomando a decisão com base nos resultados
+if (abs(z) > valor_critico_z) {
+  cat("Rejeitar H0: A taxa de violação no Texas em 2011 é diferente de 2010 com um nível de significância de 5%.\n")
+} else {
+  cat("Não rejeitar H0: Não há evidência suficiente para concluir que a taxa de violação no Texas em 2011 é diferente de 2010 com um nível de significância de 5%.\n")
+}
+
+# Exibindo os resultados
+cat("Estatística de teste Z:", z, "\n")
+cat("Valor crítico do teste Z:", valor_critico_z, "\n")
+cat("Intervalo de confiança para a diferença de proporções:", intervalo_confianca[1], "a", intervalo_confianca[2], "\n")
